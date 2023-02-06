@@ -20,7 +20,11 @@ router.post('/', [
     check('correo', 'El correo no es válido').isEmail(),
     check('correo').custom(emailExiste),
 ] , validarCampos ,usuariosPost)
-router.delete('/', usuariosDelete)
+router.delete('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom(existeUsuarioPorId),
+    validarCampos
+], usuariosDelete)
 
 
 module.exports = router;
